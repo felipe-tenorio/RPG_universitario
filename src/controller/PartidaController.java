@@ -1,6 +1,7 @@
 package controller;
 
 import model.modelo.*;
+import view.ViewTerminal;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 public class PartidaController {
     //Aqui é pra ter um atributo com a view, pra o controller conter a view
+    private ViewTerminal view;
     private Jogador jogadorAtivo;
 
     private List<Local> locais;
@@ -17,11 +19,10 @@ public class PartidaController {
     private List<Animal> animais;
     private List<EventoAleatorio> eventosAleatorios;
 
-    /* O construtor vai injeta a View e já prepara o cenário do jogo
-    //public PartidaController(ViewTerminal view) {
-    //    this.view = view;
-    //    inicializarMundo();
-    }     */
+    public PartidaController(ViewTerminal view) {
+        this.view = view;
+        inicializarMundo();
+    }
 
     private void inicializarMundo() {
         this.locais = new ArrayList<>();
@@ -91,10 +92,10 @@ public class PartidaController {
 
     // Esse metodo vai ser desenvolvido para começar um jogo
     public void iniciarJogo() {
-        // aqui seria usado o atributo de view da classe para pegar os inputs da view, como:
-        // String nome = view.pedirNomeJogador();
 
-        this.jogadorAtivo = new Jogador("Calouro Bixo");
+        //A view que pega o nome do Jogador
+        String nome = view.pedirNomeJogador();
+        this.jogadorAtivo = new Jogador(nome);
         this.jogadorAtivo.setLocal(locais.get(0)); // O jogador começa no campus
 
         loopPrincipal();
